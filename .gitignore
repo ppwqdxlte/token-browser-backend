@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### DB ###
-/src/main/resources/application.yml
 /src/main/java/com/laowang/tokenbrowserbackend/config/SqlServerDatabase.java
+/src/main/resources/application.yml
