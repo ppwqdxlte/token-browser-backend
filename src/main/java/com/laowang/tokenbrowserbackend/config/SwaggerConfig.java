@@ -58,13 +58,13 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket createRestApi(ApiInfo apiInfo) {
-        return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo)
+        return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("SwaggerGroupOneAPI")
                 .select()
+                .apis(RequestHandlerSelectors.basePackage("com.laowang.tokenbrowserbackend.controller"))   //controller的路径
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
-                .build();
+                .build().apiInfo(apiInfo);
     }
 
     /**

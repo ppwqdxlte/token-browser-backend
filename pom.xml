@@ -48,6 +48,8 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- building打包方式Jar时候，自带tomcat，打包方式war时，不需要内嵌的tomcat
+         所以 scope provided就表示 按需使用 内嵌的tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
