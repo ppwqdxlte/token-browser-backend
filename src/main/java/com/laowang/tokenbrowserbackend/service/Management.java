@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Management {
 
@@ -63,6 +65,33 @@ public class Management {
             result.setData(null);
             result.setMsg(e.getMessage());
             result.setThrowable(e);
+        } finally {
+            SQLServerConnector.closeAll(connection, ps, rs);
+        }
+        return result;
+    }
+
+    /** 查询用户列表
+     * @return 用户列表
+     */
+    public List<TokenUser> queryUserList() {
+        List<TokenUser> result = new ArrayList<>();
+        Connection connection = connector.getConnectionOfThisProject();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement("SELECT * FROM OperatorList");
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                TokenUser user = new TokenUser();
+                user.setUsername(resultSet.getString(1));
+                user.setPassword(resultSet.getString(2));
+                user.setLevel(resultSet.getString(3));
+                user.setDate(resultSet.getDate(4));
+                result.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             SQLServerConnector.closeAll(connection, ps, rs);
         }
