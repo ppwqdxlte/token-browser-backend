@@ -6,11 +6,9 @@ import com.laowang.tokenbrowserbackend.util.SQLServerConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Management {
@@ -89,6 +87,28 @@ public class Management {
                 user.setLevel(resultSet.getString(3));
                 user.setDate(resultSet.getDate(4));
                 result.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            SQLServerConnector.closeAll(connection, ps, rs);
+        }
+        return result;
+    }
+
+    public Result<TokenUser> createUser(String username, String password, Integer permisstionIndex) {
+        Result<TokenUser> result = new Result<>();
+        Connection connection = connector.getConnectionOfThisProject();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement("INSERT INTO OperatorList VALUES(?,?,?,GETDATE())");
+            ps.setString(1,username);
+            ps.setString(2,password);
+            ps.setString(3,permisstionIndex == 0?"1":"0");
+            int i = ps.executeUpdate();
+            if (i > 0){
+                result.setData(new TokenUser(username,password,permisstionIndex == 0?"1":"0",new Date(Calendar.getInstance().getTimeInMillis())));
             }
         } catch (SQLException e) {
             e.printStackTrace();

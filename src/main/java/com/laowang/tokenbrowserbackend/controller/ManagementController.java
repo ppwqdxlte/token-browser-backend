@@ -32,4 +32,17 @@ public class ManagementController {
         result.setData(management.queryUserList());
         return result;
     }
+
+    /**
+     * @param username username
+     * @param password pwd
+     * @param permisstionIndex 0-administrator对应数据库 1，1 反而对应数据库的0
+     * @return
+     */
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "create new user")
+    public Result<TokenUser> createUser(@RequestParam String username, @RequestParam String password, @RequestParam Integer permisstionIndex){
+        return management.createUser(username, password, permisstionIndex);
+    }
 }
