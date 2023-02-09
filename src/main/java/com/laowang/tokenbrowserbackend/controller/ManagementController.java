@@ -34,15 +34,26 @@ public class ManagementController {
     }
 
     /**
-     * @param username username
-     * @param password pwd
+     * @param username         username
+     * @param password         pwd
      * @param permisstionIndex 0-administrator对应数据库 1，1 反而对应数据库的0
-     * @return
+     * @return 带接口模型的返回结果
      */
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "create new user")
-    public Result<TokenUser> createUser(@RequestParam String username, @RequestParam String password, @RequestParam Integer permisstionIndex){
+    public Result<TokenUser> createUser(@RequestParam String username, @RequestParam String password, @RequestParam Integer permisstionIndex) {
         return management.createUser(username, password, permisstionIndex);
+    }
+
+    /**
+     * @param selectedUser 选中的用户名
+     * @return 带接口模型的返回结果
+     */
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "delete selected user")
+    public Result<TokenUser> deleteUser(@RequestParam String selectedUser) {
+        return management.deleteUser(selectedUser);
     }
 }

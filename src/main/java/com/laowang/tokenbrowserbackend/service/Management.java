@@ -69,7 +69,9 @@ public class Management {
         return result;
     }
 
-    /** 查询用户列表
+    /**
+     * 查询用户列表
+     *
      * @return 用户列表
      */
     public List<TokenUser> queryUserList() {
@@ -103,12 +105,32 @@ public class Management {
         ResultSet rs = null;
         try {
             ps = connection.prepareStatement("INSERT INTO OperatorList VALUES(?,?,?,GETDATE())");
-            ps.setString(1,username);
-            ps.setString(2,password);
-            ps.setString(3,permisstionIndex == 0?"1":"0");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, permisstionIndex + "");
             int i = ps.executeUpdate();
-            if (i > 0){
-                result.setData(new TokenUser(username,password,permisstionIndex == 0?"1":"0",new Date(Calendar.getInstance().getTimeInMillis())));
+            if (i > 0) {
+                result.setData(new TokenUser(username, password, permisstionIndex + "", new Date(Calendar.getInstance().getTimeInMillis())));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            SQLServerConnector.closeAll(connection, ps, rs);
+        }
+        return result;
+    }
+
+    public Result<TokenUser> deleteUser(String selectedUser) {
+        Result<TokenUser> result = new Result<>();
+        Connection connection = connector.getConnectionOfThisProject();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement("DELETE FROM OperatorList WHERE Op_Name = ?");
+            ps.setString(1, selectedUser);
+            int i = ps.executeUpdate();
+            if (i > 0) {
+                result.setData(new TokenUser(selectedUser, null, null, null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
