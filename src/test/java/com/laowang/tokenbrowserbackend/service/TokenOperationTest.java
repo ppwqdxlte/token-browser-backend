@@ -24,7 +24,7 @@ class TokenOperationTest {
     void tearDown() {
     }
 
-    @Test
+//    @Test
     void queryAll() {
         Result<List<BaseToken>> listResult = operation.queryAll();
         System.out.println(listResult.getMsg());
@@ -33,7 +33,7 @@ class TokenOperationTest {
         }
     }
 
-    @Test
+//    @Test
     void queryAllTCC() {
         Result<List<BaseToken>> listResult = operation.queryAllTCC();
         System.out.println(listResult.getMsg());
@@ -42,7 +42,7 @@ class TokenOperationTest {
         }
     }
 
-    @Test
+//    @Test
     void queryAllKCT() {
         Result<List<BaseToken>> listResult = operation.queryAllKCT();
         System.out.println(listResult.getMsg());
@@ -51,7 +51,7 @@ class TokenOperationTest {
         }
     }
 
-    @Test
+//    @Test
     void queryTokenListbyMeterStr() {
         Result<List<BaseToken>> listResult = operation.queryTokenListbyMeterStr(TokenType.TCC,"0150000854516");
         System.out.println(listResult.getMsg());

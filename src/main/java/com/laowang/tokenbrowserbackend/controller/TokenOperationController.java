@@ -41,6 +41,6 @@ public class TokenOperationController {
     @ResponseBody
     @ApiOperation(value = "query tokens by TokenType and meternumber string")
     public Result<List<BaseToken>> queryTokenListbyMeterStr(@RequestParam String tokenType, @RequestParam String meterStr) {
-        return operation.queryTokenListbyMeterStr(tokenType.contains("TCC")?TokenType.TCC:TokenType.KCT,meterStr);
+        return operation.queryTokenListbyMeterStr(tokenType.toUpperCase().contains("TCC")?TokenType.TCC:TokenType.KCT,meterStr);
     }
 }

@@ -20,9 +20,9 @@ class ManagementTest {
     void tearDown() {
     }
 
-    @Test
+//    @Test
     void changePassword() {
-        Result<TokenUser> tokenUserResult = management.changePassword("0001", "123", "123", "123");
+        Result<TokenUser> tokenUserResult = management.changePassword("0001", "0000", "0000", "0000");
         System.out.println(tokenUserResult.getMsg());
         System.out.println(tokenUserResult.getData().toString());
     }

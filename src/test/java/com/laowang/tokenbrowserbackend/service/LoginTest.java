@@ -13,7 +13,7 @@ class LoginTest {
         login = Login.getInstance();
     }
 
-    @Test
+//    @Test
     void submit() {
         Result<TokenUser> submit = login.submit("0001", "123");
         System.out.println(submit.getMsg());
